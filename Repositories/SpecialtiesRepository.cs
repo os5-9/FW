@@ -36,8 +36,7 @@ namespace JustWork.Repositories
         public void PlusOneSpecialty(int id)
         {
             Specialties Specialty = GetOne(id);
-            int StAmount = Specialty.AmountStatements;
-            Specialty.AmountStatements = StAmount + 1;
+            Specialty.AmountStatements++;
             Save();
         }
 
@@ -48,10 +47,8 @@ namespace JustWork.Repositories
         public void PlusOneSpecialtyWithPriority(int id)
         {
             Specialties Specialty = GetOne(id);
-            int StAmount = Specialty.AmountStatements;
-            int PrAmount = Specialty.AmountPriority;
-            Specialty.AmountStatements = StAmount + 1;
-            Specialty.AmountPriority = PrAmount + 1;
+            Specialty.AmountStatements++;
+            Specialty.AmountPriority++;
             Save();
         }
 
@@ -62,8 +59,7 @@ namespace JustWork.Repositories
         public void MinusOneSpecialty(int id)
         {
             Specialties Specialty = GetOne(id);
-            int StAmount = Specialty.AmountStatements;
-            Specialty.AmountStatements = StAmount - 1;
+            Specialty.AmountStatements--;
             Save();
         }
 
