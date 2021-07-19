@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Popka\Source\Repos\FW\obj\Debug\
+C:\Users\Popka\Source\Repos\FW\obj\Release\
 JustWork
 none
 false
-DEBUG;TRACE
+TRACE
 C:\Users\Popka\Source\Repos\FW\App.xaml
 11151548125
 21231008156
-15-1492652955
+14-650293588
 19-1228359325
 MainWindow.xaml;
 
-False
+True
 

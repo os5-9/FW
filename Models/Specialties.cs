@@ -12,6 +12,7 @@ namespace JustWork.Models
         public string Cypher { get; set; }
         [StringLength(120)]
         public string Description { get; set; }
+        public bool Budget { get; set; }
         public int AmountStatements { get; set; }
         public int AmountPriority { get; set; }
     }

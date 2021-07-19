@@ -7,11 +7,11 @@
         mc:Ignorable="d"
         Title="" Height="450" Width="800">
     <TabControl>
-        <TabItem Header="Бюджет" FontSize="14">
-            <ListView>
+        <TabItem Header="Бюджет" FontSize="14" DataContext="{Binding BudgetView}">
+            <ListView ItemsSource="{Binding BudgetGroups}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Height="auto" Width="auto" VerticalAlignment="Top" >
+                        <Grid Name="gridTemplate" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="auto"/>
                                 <ColumnDefinition Width="2*"/>
@@ -20,22 +20,22 @@
                                 <ColumnDefinition Width="auto"/>
                                 <ColumnDefinition Width="auto"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock x:Name="tbCypher" Grid.Column="0" Text="cypher" FontSize="14"/>
-                            <TextBlock x:Name="tbDescription" Grid.Column="1" FontSize="14"/>
-                            <Button x:Name="btnPlus" Content="+1" Grid.Column="2" Width="40" FontSize="14"/>
-                            <Button x:Name="btnPriority" Content="Приоритет+1" Grid.Column="3" FontSize="14"/>
-                            <Button x:Name="btnMinus" Content="-1" Grid.Column="4" Width="40" FontSize="14"/>
-                            <Button x:Name="btnPriorityMinus" Content="Приоритет-1" Grid.Column="5" FontSize="14"/>
+                            <TextBlock x:Name="tbCypher" Text="{Binding Cypher}" Grid.Column="0" FontSize="14"/>
+                            <TextBlock x:Name="tbDescription" Text="{Binding Description}"  Grid.Column="1" FontSize="14"/>
+                            <Button x:Name="btnPlus" Command="{Binding Path=DataContext.AddOne, ElementName=ExtrabudgetTab}" CommandParameter="{Binding ElementName=gridTemplate, Path=DataContext}" Content="+1" Grid.Column="2" Width="40" FontSize="14"/>
+                            <Button x:Name="btnPriority" Command="{Binding Path=DataContext.AddPriorityOne, ElementName=ExtrabudgetTab}" CommandParameter="{Binding ElementName=gridTemplate, Path=DataContext}" Content="Приоритет+1" Grid.Column="3" FontSize="14"/>
+                            <Button x:Name="btnMinus" Command="{Binding Path=DataContext.MinOne, ElementName=ExtrabudgetTab}" CommandParameter="{Binding ElementName=gridTemplate, Path=DataContext}" Content="-1" Grid.Column="4" Width="40" FontSize="14"/>
+                            <Button x:Name="btnPriorityMinus" Command="{Binding Path=DataContext.MinPriorityOne, ElementName=ExtrabudgetTab}" CommandParameter="{Binding ElementName=gridTemplate, Path=DataContext}" Content="Приоритет-1" Grid.Column="5" FontSize="14"/>
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
         </TabItem>
-        <TabItem Header="Внебюджет" FontSize="14">
-            <ListView>
+        <TabItem Header="Внебюджет" Name="ExtrabudgetTab" FontSize="14" DataContext="{Binding ExtrabudgetView}">
+            <ListView ItemsSource="{Binding ExtrabudgetGroups}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Background="#FFE5E5E5" Height="auto" Width="auto" VerticalAlignment="Top" >
+                        <Grid Background="#FFE5E5E5" x:Name="gridTemplate" Height="auto" Width="auto" VerticalAlignment="Top" >
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="auto"/>
                                 <ColumnDefinition Width="2*"/>
@@ -44,21 +44,16 @@
                                 <ColumnDefinition Width="auto"/>
                                 <ColumnDefinition Width="auto"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock x:Name="tbCypherOut" Grid.Column="0" Text="cypher" FontSize="14"/>
-                            <TextBlock x:Name="tbDescriptionOut" Grid.Column="1" FontSize="14"/>
-                            <Button x:Name="btnPlusOut" Content="+1" Grid.Column="2" Width="40" FontSize="14"/>
-                            <Button x:Name="btnPriorityOut" Content="Приоритет+1" Grid.Column="3" FontSize="14"/>
-                            <Button x:Name="btnMinusOut" Content="-1" Grid.Column="4" Width="40" FontSize="14"/>
-                            <Button x:Name="btnPriorityMinusOut" Content="Приоритет-1" Grid.Column="5" FontSize="14"/>
+                            <TextBlock x:Name="tbCypherOut" Grid.Column="0" Text="{Binding Cypher}" FontSize="14"/>
+                            <TextBlock x:Name="tbDescriptionOut" Text="{Binding Description}" Grid.Column="1" FontSize="14"/>
+                            <Button x:Name="btnPlusOut" Command="{Binding Path=DataContext.AddOne, ElementName=ExtrabudgetTab}" CommandParameter="{Binding ElementName=gridTemplate, Path=DataContext}" Content="+1" Grid.Column="2" Width="40" FontSize="14"/>
+                            <Button x:Name="btnPriorityOut" Command="{Binding Path=DataContext.AddPriorityOne, ElementName=ExtrabudgetTab}" CommandParameter="{Binding ElementName=gridTemplate, Path=DataContext}" Content="Приоритет+1" Grid.Column="3" FontSize="14"/>
+                            <Button x:Name="btnMinusOut" Command="{Binding Path=DataContext.MinOne, ElementName=ExtrabudgetTab}" CommandParameter="{Binding ElementName=gridTemplate, Path=DataContext}" Content="-1" Grid.Column="4" Width="40" FontSize="14"/>
+                            <Button x:Name="btnPriorityMinusOut" Command="{Binding Path=DataContext.MinPriorityOne, ElementName=ExtrabudgetTab}" CommandParameter="{Binding ElementName=gridTemplate, Path=DataContext}" Content="Приоритет-1" Grid.Column="5" FontSize="14"/>
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-        </TabItem>
-        <TabItem Header="rge">
-            <DataGrid x:Name="dgT">
-                
-            </DataGrid>
         </TabItem>
     </TabControl>
 </Window>

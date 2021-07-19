@@ -75,8 +75,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModel\BudgetViewModel.cs" />
+    <Compile Include="ViewModel\CommonViewModel.cs" />
+    <Compile Include="ViewModel\ExtrabudgetViewModel.cs" />
+    <Compile Include="ViewModel\Interface\Command.cs" />
     <Compile Include="Infrastructure\ISpecialtiesRepository.cs" />
     <Compile Include="Repositories\SpecialtiesRepository.cs" />
+    <Compile Include="ViewModel\PropertyChange.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
