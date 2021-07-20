@@ -1,23 +1,13 @@
 ﻿using JustWork.Models;
 using JustWork.ViewModel.Interface;
-using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 
 namespace JustWork.ViewModel
 {
     class BudgetViewModel : PropertyChange
     {
-        private ObservableCollection<Specialties> budgetGroups;
-
-        public ObservableCollection<Specialties> BudgetGroups 
-        { 
-            get => budgetGroups; 
-            set 
-            {
-                budgetGroups = value;
-                ChangingProperty(nameof(BudgetGroups));
-            }
-        }
+        private BindingList<Specialties> budgetGroups;
         private Command addOne;
         private Command minOne;
         private Command addPriorityOne;
@@ -34,7 +24,6 @@ namespace JustWork.ViewModel
                 }));
             }
         }
-
         public Command AddOne
         {
             get
@@ -46,19 +35,6 @@ namespace JustWork.ViewModel
                 }));
             }
         }
-
-        private void ChangeCountAmountStatement(object obj, int value)
-        {
-            var speciality = obj as Specialties;
-            speciality.AmountStatements += value;
-        }
-
-        private void SaveChangeAndChange()
-        {
-            model.SaveChanges();
-            ChangingProperty(nameof(ExtrabudgetGroups));
-        }
-
         public Command AddPriorityOne
         {
             get
@@ -79,6 +55,16 @@ namespace JustWork.ViewModel
                 }));
             }
         }
+        private void ChangeCountAmountStatement(object obj, int value)
+        {
+            var speciality = obj as Specialties;
+            speciality.AmountStatements += value;
+        }
+        private void SaveChangeAndChange()
+        {
+            ChangingProperty(nameof(BudgetGroups));
+            model.SaveChanges();
+        }
         private void ChangePriority(object obj, int value)
         {
             var speciality = obj as Specialties;
@@ -91,17 +77,21 @@ namespace JustWork.ViewModel
         public BudgetViewModel(Model model)
         {
             this.model = model;
-            var specialties = model.Specialties.Local.Where(x => x.Budget).ToList();
-            ExtrabudgetGroups = new ObservableCollection<Specialties>(specialties);
+            FillSpecialtie();
         }
-        public ObservableCollection<Specialties> ExtrabudgetGroups
+        public BindingList<Specialties> BudgetGroups
         {
             get => budgetGroups;
             set
             {
                 budgetGroups = value;
-                ChangingProperty(nameof(ExtrabudgetGroups));
+                ChangingProperty(nameof(BudgetGroups));
             }
+        }
+        private void FillSpecialtie()
+        {
+            var specialties = model.Specialties.Local.Where(x => x.Budget).ToList();
+            BudgetGroups = new BindingList<Specialties>(specialties);
         }
     }
 }

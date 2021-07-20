@@ -1,7 +1,9 @@
 ﻿using JustWork.Models;
 using JustWork.ViewModel.Interface;
 using System.Collections.ObjectModel;
+using System.Data.Entity.Validation;
 using System.Linq;
+using System.Windows;
 
 namespace JustWork.ViewModel
 {
@@ -20,7 +22,6 @@ namespace JustWork.ViewModel
                 return minOne ?? (minOne = new Command(obj =>
                 {
                     ChangeCountAmountStatement(obj, -1);
-                    SaveChangeAndChange();
                 }));
             }
         }
@@ -32,7 +33,6 @@ namespace JustWork.ViewModel
                 return addOne ?? (addOne = new Command(obj =>
                 {
                     ChangeCountAmountStatement(obj, 1);
-                    SaveChangeAndChange();
                 }));
             }
         }
@@ -41,11 +41,29 @@ namespace JustWork.ViewModel
         {
             var speciality = obj as Specialties;
             speciality.AmountStatements += value;
+            SaveChangeAndChange();
         }
 
         private void SaveChangeAndChange()
         {
-            model.SaveChanges();
+            try
+            {
+                model.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    var lineError = string.Format("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:\n",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        lineError += string.Format("- Property: \"{0}\", Error: \"{1}\"\n",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                    MessageBox.Show(lineError, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
             ChangingProperty(nameof(ExtrabudgetGroups));
         }
 

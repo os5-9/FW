@@ -15,5 +15,6 @@ namespace JustWork.Models
         public bool Budget { get; set; }
         public int AmountStatements { get; set; }
         public int AmountPriority { get; set; }
+        public string EducationalForm { get; set; }
     }
 }
